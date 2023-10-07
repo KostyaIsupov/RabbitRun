@@ -23,6 +23,7 @@ public class WolfAI : MonoBehaviour
         {
             agent.SetDestination(PlayerTransform.position);
         }
+        transform.LookAt(PlayerTransform.position);
     }
 
     private void OnCollisionEnter(Collision collision)
