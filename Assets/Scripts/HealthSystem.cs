@@ -26,15 +26,26 @@ public class HealthSystem : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        RenderHealth();
         print(health);
         if(health<=0)
         {
+            health = 0;
             print("Died");
             Destroy(gameObject);
         }
+        RenderHealth();
     }  
     
+    public void AddHealth(int healthAmount)
+    {
+        health += healthAmount;
+        print(health);
+        if (health > MaxHealth)
+        {
+            health = MaxHealth;
+        }
+        RenderHealth();
+    }
     public void RenderHealth()
     {
         healthText.text = health.ToString();
