@@ -12,6 +12,7 @@ public class WolfAI : MonoBehaviour
     private Animator anim;
     private HealthSystem playerHS;
     public int hitDamage = 30;
+    public AudioSource bite;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +58,7 @@ public class WolfAI : MonoBehaviour
 
     public void DamagePlayer()
     {
+        bite.Play();
         playerHS.TakeDamage(hitDamage);
     }    
 }

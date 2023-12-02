@@ -10,7 +10,8 @@ public class HealthSystem : MonoBehaviour
 
     public Text healthText;
     public Image healthFiller;
-    public GameUIController gameUIController;
+    public AudioSource gameLoseSound;
+    private GameUIController gameUIController;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,10 +35,7 @@ public class HealthSystem : MonoBehaviour
         print(health);
         if(health<=0)
         {
-            health = 0;
-            print("Died");
-            Destroy(gameObject);
-            gameUIController.OpenDeathPanel();
+            Kill();
         }
         RenderHealth();
     }  
@@ -57,7 +55,14 @@ public class HealthSystem : MonoBehaviour
         healthText.text = health.ToString();
         healthFiller.fillAmount = (float)health / (float)MaxHealth;
     }    
-
+    public void Kill()
+    {
+        health = 0;
+        print("Died");
+        gameLoseSound.Play();
+        Destroy(gameObject);
+        gameUIController.OpenDeathPanel();
+    }
     IEnumerator Hunger()
     {
         TakeDamage(1);

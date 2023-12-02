@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     public Text carrotText;
     private Vector3 PlayerVelocity;
+    public AudioSource footsteps;
+    public AudioSource carrotEat;
 
     public float rotationSpeed = 1.0f;
     public float moveSpeed = 1.0f;
@@ -36,6 +38,9 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(0, Input.GetAxis("Horizontal") * rotationSpeed, 0);
         Vector3 direction = transform.forward;
         float curSpeed = Input.GetAxis("Vertical") * moveSpeed;
+
+        footsteps.mute = curSpeed == 0;
+
         characterController.Move(direction * curSpeed * Time.deltaTime);
         animator.SetFloat("RunSpeed", runSpeed);
         animator.SetFloat("RabbitSpeed", Mathf.Abs(curSpeed));
@@ -56,7 +61,9 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.tag == "Carrot")
         {
             carrotsCollected += 1;
+
             healthSystem.AddHealth(carrotHealth);
+            carrotEat.Play();
             print(carrotsCollected);
             Destroy(collision.gameObject);
         }
