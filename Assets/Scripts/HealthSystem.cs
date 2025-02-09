@@ -50,6 +50,15 @@ public class HealthSystem : MonoBehaviour
         }
         RenderHealth();
     }
+    public void SetHealth(int healthAmount)
+    {
+        health = healthAmount;
+        if (health <= 0)
+        {
+            Kill();
+        }
+        RenderHealth();
+    }
     public void RenderHealth()
     {
         healthText.text = health.ToString();
